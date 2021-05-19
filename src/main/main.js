@@ -1,9 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./main.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function MainPage() {
   const [products, setProducts] = useState([]);
+
+  useEffect(function () {
+    setProducts([
+      {
+        name: "농구공",
+        price: 100000,
+        seller: "조던",
+        imageUrl: "images/products/basketball1.jpeg",
+      },
+      {
+        name: "축구공",
+        price: 50000,
+        seller: "메시",
+        imageUrl: "images/products/soccerball1.jpg",
+      },
+      {
+        name: "키보드",
+        price: 10000,
+        seller: "마키나랩",
+        imageUrl: "images/products/keyboard1.jpg",
+      },
+    ]);
+  }, []);
 
   // useEffect(function () {
   //   axios
@@ -33,27 +57,29 @@ function MainPage() {
           {products.map(function (product, index) {
             return (
               <div class="product-list__card">
-                <div>
-                  <img class="product-list__img" src={product.imageUrl} />
-                </div>
-                <div class="product-contents">
-                  <span class="product-name">{product.name}</span>
-                  <span class="product-price">{product.price}원</span>
-                  <div class="product-seller">
-                    <img
-                      class="product-avatar"
-                      src="images/images/icons/avatar.png"
-                      alt=""
-                    />
-                    <span>{product.seller}</span>
+                <Link className="product-link" to={`/product/${index}`}>
+                  <div>
+                    <img class="product-list__img" src={product.imageUrl} />
                   </div>
-                </div>
+                  <div class="product-contents">
+                    <span class="product-name">{product.name}</span>
+                    <span class="product-price">{product.price}원</span>
+                    <div class="product-seller">
+                      <img
+                        class="product-avatar"
+                        src="images/icons/avatar.png"
+                        alt=""
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                  </div>
+                </Link>
               </div>
             );
           })}
         </div>
-        <div id="footer"></div>
       </div>
+      <div id="footer"></div>
     </div>
   );
 }
